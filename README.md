@@ -10,6 +10,6 @@ Hot to run:
 - Run them;
 - Access them:
   - For perfect-number-http-sb-swagger: access the Swagger UI at http://localhost:8080/swagger-ui/index.html;
-  - For perfect-number-http-java: access localhost:8080.
+  - For perfect-number-http-java: access http://localhost:8080.
  
 That's it for now.
