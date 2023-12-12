@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Perfect Number</title>
+    </head>
+
+    <body>
+		<div>
+			<h1>Perfect Number</h1>
+		</div>
+		<hr>
+		<div>
+			<h3>Test a number<h3>
+			<input id="testParamNumber" type="number" placeholder="Number to test">
+			<button id="testButton" onclick="test()">Test</button>
+		</div>
+		<span id="testResult"></span>
+		<hr>
+		<div>
+			<h3>Find perfect numbers<h3>
+			<input id="findParamNumber1" type="number" placeholder="From">
+			<input id="findParamNumber2" type="number" placeholder="To">
+			<button id="findButton" onclick="find()">Find</button>
+		</div>
+		<span id="findResult"></span>
+    </body>
+	
+	<script>
+		
+		function test() {
+			document.getElementById("testButton").disabled = true
+			
+			let number = document.getElementById("testParamNumber").value
+			fetch('perfect-number/test?number=' + number)
+			.then(function(response) {
+				return response.json().then(data => {
+					document.getElementById("testButton").disabled = false
+					
+					let testResult = document.getElementById("testResult")
+					if(true == data) {
+						testResult.innerHTML = "It <b>is</b> a Perfect Number"
+					}
+					else {
+						testResult.innerHTML = "It <b>is not</b> a Perfect Number"
+					}
+				})
+			}, function(error) {
+				document.getElementById("testButton").disabled = false
+			})
+		}
+		
+		function find() {
+			document.getElementById("findButton").disabled = true
+		
+			let number1 = document.getElementById("findParamNumber1").value
+			let number2 = document.getElementById("findParamNumber2").value
+			
+			fetch('perfect-number/find?number1=' + number1 + '&number2=' + number2)
+			.then(function(response) {
+				return response.json().then(data => {
+					document.getElementById("findButton").disabled = false
+					
+					let testResult = document.getElementById("findResult")
+					if(data.length == 0) {
+						testResult.innerHTML = "No perfect numbers found"
+					}
+					else {
+						let str = `Perfect numbers found: <b>${data.join(", ")}</b>`
+						testResult.innerHTML = str
+					}
+				})
+			}, function(error) {
+				document.getElementById("findButton").disabled = false
+			})
+		}
+
+	</script>
+
+</html>
