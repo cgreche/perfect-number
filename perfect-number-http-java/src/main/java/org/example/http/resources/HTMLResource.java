@@ -23,9 +23,8 @@ public class HTMLResource extends HttpResource {
     public void onRequest(HttpExchange request) throws HttpResourceException {
         OutputStream responseStream = request.getResponseBody();
 
-        try {
-            InputStream dataStream = PerfectNumberJavaWeb.class.getClassLoader().getResourceAsStream(resourcePath);
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try(InputStream dataStream = PerfectNumberJavaWeb.class.getClassLoader().getResourceAsStream(resourcePath)) {
             byte[] buf = new byte[1024 * 1024 * 8];
             int read;
             while ((read = dataStream.read(buf, 0, buf.length)) != -1) {
@@ -40,5 +39,7 @@ public class HTMLResource extends HttpResource {
         } catch (IOException e) {
             throw new HttpResourceException(e);
         }
+
+
     }
 }
